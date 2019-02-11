@@ -1,7 +1,5 @@
 package com.muzammil.teamtnt.am;
 
-import android.content.res.Resources;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class DashboardActivity extends AppCompatActivity implements NoticeDialogFragment.NoticeDialogListener{
+public class DashboardActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +29,7 @@ public class DashboardActivity extends AppCompatActivity implements NoticeDialog
 
     public void showDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        NoticeDialogFragment newFragment = new NoticeDialogFragment();
+        DateRangeDialogFragment newFragment = new DateRangeDialogFragment();
 
         if (false) {
             // The device is using a large layout, so show the fragment as a dialog
@@ -47,19 +45,6 @@ public class DashboardActivity extends AppCompatActivity implements NoticeDialog
                     .addToBackStack(null).commit();
         }
     }
-    // The dialog fragment receives a reference to this Activity through the
-    // Fragment.onAttach() callback, which it uses to call the following methods
-    // defined by the NoticeDialogFragment.NoticeDialogListener interface
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        // User touched the dialog's positive button
 
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        // User touched the dialog's negative button
-
-    }
 
 }
