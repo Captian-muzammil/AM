@@ -6,17 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <com.muzammil.teamtnt.calender.customviews.DateRangeCalendarView
+        android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/background_light"
+        android:layout_marginBottom="-1dp"
+        android:background="@color/white"
+        app:disable_date_color="@color/disable_date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:range_color="@color/date_range"
+        app:selected_date_circle_color="@color/selected_date_circle"
+        app:selected_date_color="@color/selected_date"
+        app:title_color="@color/white"></com.muzammil.teamtnt.calender.customviews.DateRangeCalendarView>
 </android.support.constraint.ConstraintLayout>
