@@ -2,11 +2,11 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="white">#FFFFFF</color>
+    <color name="colorAccent">#d81b60</color>
+    <color name="white">#ffffff</color>
     <color name="disable_date">@color/light_grey</color>
     <color name="light_grey">#979797</color>
     <color name="date_range">#8000B4CC</color>
-    <color name="selected_date_circle">#00B4CC</color>
+    <color name="selected_date_circle">#00b4cc</color>
     <color name="selected_date">@color/white</color>
 </resources>

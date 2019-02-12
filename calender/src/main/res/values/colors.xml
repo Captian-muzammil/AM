@@ -2,7 +2,7 @@
 <resources>
 
     <!-- General -->
-    <color name="selected_date_circle_color">#54B948</color>
+    <color name="selected_date_circle_color">#54b948</color>
 
     <!-- Fonts -->
     <color name="title_color">#000</color>
