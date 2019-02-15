@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DashboardActivity extends AppCompatActivity{
 
     private ConnectionDetector connectionDetector;
-    private TextView mTextViewValue;
+    private TextView textViewOrder,textViewAmount,textViewOutlet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,9 @@ public class DashboardActivity extends AppCompatActivity{
             findViewById(R.id.dashboard_cv).setVisibility(View.GONE);
             findViewById(R.id.no_internet_cv).setVisibility(View.VISIBLE);
         }
-        mTextViewValue = findViewById(R.id.textViewValue);
+        textViewOrder = findViewById(R.id.textViewOrder);
+        textViewAmount = findViewById(R.id.textViewAmount);
+        textViewOutlet = findViewById(R.id.textViewOutlet);
 
 
             getDashboardData();
@@ -54,13 +56,50 @@ public class DashboardActivity extends AppCompatActivity{
         AMService service = retrofit.create(AMService.class);
 
         Call<TotalOrderResponse> totalOrder = service.totalOrder();
+        Call<OrderResponse> orderList = service.orderList();
+        Call<TotalOutletResponse> totalOutlet = service.totalOutlet();
 
+        orderList.enqueue(new Callback<OrderResponse>() {
+            @Override
+            public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
+                Log.i("test",""+ (response.body() != null ? response.body().data : null));
+                int amount = 0;
+                if(response.body() != null){
+                    for(int i = 0; i < response.body().data.size(); i++){
+                        amount += response.body().data.get(0).amount;
+                    }
+                    }else{
+
+                    }
+
+                textViewAmount.setText(amount+"");
+
+            }
+
+            @Override
+            public void onFailure(Call<OrderResponse> call, Throwable t) {
+
+            }
+        });
+
+        totalOutlet.enqueue(new Callback<TotalOutletResponse>() {
+            @Override
+            public void onResponse(Call<TotalOutletResponse> call, Response<TotalOutletResponse> response) {
+                Log.i("test",""+ (response.body() != null ? response.body().data : 0));
+                textViewOutlet.setText( response.body() != null ? response.body().data+ "" : "0");
+            }
+
+            @Override
+            public void onFailure(Call<TotalOutletResponse> call, Throwable t) {
+
+            }
+        });
         totalOrder.enqueue(new Callback<TotalOrderResponse>() {
             @Override
             public void onResponse(Call<TotalOrderResponse> call, Response<TotalOrderResponse> response) {
+                Log.i("test",""+ (response.body() != null ? response.body().data : null));
 
-
-                    mTextViewValue.setText( response.body() != null ? response.body().data+ "" : "0");
+                textViewOrder.setText( response.body() != null ? response.body().data+ "" : "0");
 
             }
 
@@ -69,6 +108,9 @@ public class DashboardActivity extends AppCompatActivity{
 
             }
         });
+
+
+
 
 
 

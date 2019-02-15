@@ -7,4 +7,11 @@ public interface AMService {
 
     @GET("total_order")
     Call<TotalOrderResponse> totalOrder();
+
+    @GET("order")
+    Call<OrderResponse> orderList();
+
+    @GET("total_outlet")
+    Call<TotalOutletResponse> totalOutlet();
+
 }
