@@ -14,10 +14,12 @@ public class DashboardRcvAdapter extends RecyclerView.Adapter<DashboardRcvAdapte
     // you provide access to all the views for a data item in a view holder
     public static class DashboardRcvViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
+        public TextView mTextViewName;
+        public TextView mTextViewValue;
         public DashboardRcvViewHolder(View v) {
             super(v);
-            mTextView = v.findViewById(R.id.textView);
+            mTextViewName = v.findViewById(R.id.textViewName);
+            mTextViewValue = v.findViewById(R.id.textViewValue);
         }
     }
 
@@ -43,7 +45,7 @@ public class DashboardRcvAdapter extends RecyclerView.Adapter<DashboardRcvAdapte
     public void onBindViewHolder(DashboardRcvViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
+        holder.mTextViewName.setText(mDataset[position]);
 
     }
 

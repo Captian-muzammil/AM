@@ -6,19 +6,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DashboardActivity extends AppCompatActivity{
 
-
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private ConnectionDetector connectionDetector;
-
+    private TextView mTextViewValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,24 +37,41 @@ public class DashboardActivity extends AppCompatActivity{
             findViewById(R.id.dashboard_cv).setVisibility(View.GONE);
             findViewById(R.id.no_internet_cv).setVisibility(View.VISIBLE);
         }
+        mTextViewValue = findViewById(R.id.textViewValue);
+
+
+            getDashboardData();
+
+
+    }
+
+    private void getDashboardData(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.101:8000/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AMService service = retrofit.create(AMService.class);
+
+        Call<TotalOrderResponse> totalOrder = service.totalOrder();
+
+        totalOrder.enqueue(new Callback<TotalOrderResponse>() {
+            @Override
+            public void onResponse(Call<TotalOrderResponse> call, Response<TotalOrderResponse> response) {
+
+
+                    mTextViewValue.setText( response.body() != null ? response.body().data+ "" : "0");
+
+            }
+
+            @Override
+            public void onFailure(Call<TotalOrderResponse> call, Throwable t) {
+
+            }
+        });
 
 
 
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.rcv_dashboard);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
-        String[] myDataset = {"Total Order : 805","Total Outlets : 20","Total Sale Amount : 500,000"};
-        mAdapter = new DashboardRcvAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
