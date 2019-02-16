@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
+
 import java.io.IOException;
 
 import retrofit2.Call;
@@ -25,6 +28,7 @@ public class DashboardActivity extends AppCompatActivity{
 
     private ConnectionDetector connectionDetector;
     private TextView textViewOrder,textViewAmount,textViewOutlet;
+    public String m_FCMtoken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +45,8 @@ public class DashboardActivity extends AppCompatActivity{
         textViewAmount = findViewById(R.id.textViewAmount);
         textViewOutlet = findViewById(R.id.textViewOutlet);
 
-
+        m_FCMtoken = FirebaseInstanceId.getInstance().getToken();
+        Log.i("AmFCMtoken"," : " +m_FCMtoken);
             getDashboardData();
 
 
